@@ -1,27 +1,29 @@
 import numpy as np
 import cv2 as cv
-
+import time
 # 视频文件路径
 video_path = 'test.mp4'
 cap = cv.VideoCapture(video_path)
+
+# cap = cv.VideoCapture(0)
 
 # ShiTomasi角点检测参数
 feature_params = dict(maxCorners=100, qualityLevel=0.3, minDistance=7, blockSize=7)
 # Lucas-Kanade光流法参数
 lk_params = dict(winSize=(15, 15), maxLevel=2, criteria=(cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 0.03))
 
-# 读取第一帧
-ret, old_frame = cap.read()
-if not ret:
-    print("无法读取视频")
-    exit()
-old_gray = cv.cvtColor(old_frame, cv.COLOR_BGR2GRAY)
-p0 = cv.goodFeaturesToTrack(old_gray, **feature_params)
-
-# 创建一个蒙版用于绘图
-mask = np.zeros_like(old_frame)
 
 while True:
+    # 读取第一帧
+    ret, old_frame = cap.read()
+    if not ret:
+        print("无法读取视频")
+        exit()
+    old_gray = cv.cvtColor(old_frame, cv.COLOR_BGR2GRAY)
+    p0 = cv.goodFeaturesToTrack(old_gray, **feature_params)
+    # 创建一个蒙版用于绘图
+    mask = np.zeros_like(old_frame)
+    # time.sleep(1)
     ret, frame = cap.read()
     if not ret:
         break
