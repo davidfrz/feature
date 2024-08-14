@@ -38,7 +38,18 @@ while True:
 
     # 计算所有特征点的水平位移
     horizontal_displacements = [new[0] - old[0] for new, old in zip(good_new, good_old)]
-
+    # # 计算所有特征点垂直位移
+    # vertical_displacements = [new[1] - old[1] for new, old in zip(good_new, good_old)]
+    # # 计算平均垂直位移
+    # if len(vertical_displacements) > 0:
+    #     average_dy = np.mean(vertical_displacements)
+    #     if average_dy > 0:
+    #         direction = "向下移动"
+    #     elif average_dy < 0:
+    #         direction = "向上移动"
+    #     else:
+    #         direction = "未检测到垂直移动"
+    #     print(f"检测到的总体移动方向: {direction}")
     # 计算平均位移
     if len(horizontal_displacements) > 0:
         average_dx = np.mean(horizontal_displacements)
